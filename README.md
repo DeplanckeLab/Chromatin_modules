@@ -18,8 +18,7 @@ For more details, please refer to [van Mierlo, Pushkarev, Trends in Genetics, 20
 
 This repository contains:
 1. Input data used for CM mapping
-2. Scripts for CM mapping with [VCMtools](https://doi.org/10.1016/j.cell.2015.08.001), [Clomics](https://www.science.org/doi/10.1126/science.aat8266) and [PHM]
-(https://www.nature.com/articles/s41588-018-0278-6)
+2. Scripts for CM mapping with [VCMtools](https://doi.org/10.1016/j.cell.2015.08.001), [Clomics](https://www.science.org/doi/10.1126/science.aat8266) and [PHM](https://www.nature.com/articles/s41588-018-0278-6)
 3. Methods for CM reproducibility/similarity scoring
 4. CM simulation strategy
  
