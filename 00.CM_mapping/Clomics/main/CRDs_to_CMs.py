@@ -61,6 +61,7 @@ def find_children(lst):
        If no internal nodes left, the function outputs the list of all children of the nodes in the input list'''
     children_list = []
     for node in lst:
+        if node.startswith('chr'):
             row = crd_tree_df[crd_tree_df['feature_id'] == str(node)]
             if (str(row['first_child'].iloc[0]) == 'nan') or (str(row['second_child'].iloc[0]) == 'nan'):
                 children_list.append(str(row['UID'].iloc[0]))
