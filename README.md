@@ -22,6 +22,10 @@ This repository contains:
 3. Methods for CM reproducibility/similarity scoring
 4. CM simulation strategy
 
+Installation steps:
+1. Install [Clomics](https://github.com/odelaneau/clomics) and/or [PHM](https://github.com/natsuhiko/PHM).
+2. TDB
+
 **Upcoming updates:**
 1. Web sever with data acceess (in Deployment).
 2. Tutorial on CM mapping 
