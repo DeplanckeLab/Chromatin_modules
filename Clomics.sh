@@ -2,23 +2,23 @@
 # +
 ## SPECIFY:
 
-## path to PHM
+## path to Clomics
 export clomics_dir=/software/clomics-1.0/bin/clomics;
 
 ## path to PHM helper scripts:
-path_to_help=/data/pushkare/computational_paper/GITHUB/00.CM_mapping/cm_1.0-1_x86_64/usr/local/bin;
+path_to_help=./;
 
 ## input dataset:
 dataset="test_data";
 
 ## path to gzipped BED count matrices
-path_to_input=/data/pushkare/computational_paper/GITHUB/${dataset}/gzipped_bed;
+path_to_input=./${dataset}/gzipped_bed;
 
 ## chromosomes to use
 chromosomes="chr21,chr22";
 
 ## output path:
-output_path=/data/pushkare/computational_paper/GITHUB/00.CM_mapping/Clomics;
+output_path=./Clomics;
 
 
 ## Run PHM on test_data for chr21 and chr22
