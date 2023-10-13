@@ -5,7 +5,7 @@
 ## path to Clomics
 export clomics_dir=/software/clomics-1.0/bin/clomics;
 
-## path to PHM helper scripts:
+## path to Clomics helper scripts:
 path_to_help=./;
 
 ## input dataset:
@@ -21,7 +21,7 @@ chromosomes="chr21,chr22";
 output_path=./Clomics;
 
 
-## Run PHM on test_data for chr21 and chr22
+## Run Clomics on test_data for chr21 and chr22
 sh ${path_to_help}/clomics/run_Clomics.sh \
     -i ${path_to_input}/H3K27ac_chr21_chr22.bed.gz,${path_to_input}/H3K4me1_chr21_chr22.bed.gz \
     -p ${clomics_dir} \
