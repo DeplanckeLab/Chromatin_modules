@@ -19,14 +19,14 @@ For more details, please refer to [van Mierlo, Pushkarev, Trends in Genetics, 20
 This repository contains:
 1. Input data used for CM mapping
 2. Scripts for CM mapping with [VCMtools](https://doi.org/10.1016/j.cell.2015.08.001), [Clomics](https://www.science.org/doi/10.1126/science.aat8266) and [PHM](https://www.nature.com/articles/s41588-018-0278-6)
-3. Methods for CM reproducibility/similarity scoring
-4. CM simulation strategy
 
-Installation steps:
+CM mapping steps:
 1. Install [Clomics](https://github.com/odelaneau/clomics) and/or [PHM](https://github.com/natsuhiko/PHM).
-2. TDB
+2. Clone the repo, adapt the paths to scripts, input and output files in one of the bash scripts that you want to use: VCMtools.sh, Clomics.sh, or PHM.sh.
 
 **Upcoming updates:**
-1. Web sever with data acceess (in Deployment).
-2. Tutorial on CM mapping 
+1. Web sever with data acceess (in Deployment)
+2. Tutorial on CM mapping
+3. Methods for CM reproducibility/similarity scoring
+4. CM simulation strategy
  
