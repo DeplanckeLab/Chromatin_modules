@@ -3,13 +3,13 @@
 ## SPECIFY:
 
 ## path to PHM
-export phm_dir=/data/software/PHM-0.2;
+export phm_dir=/software/PHM-0.2;
 
 ## path to PHM helper scripts:
-path_to_phm_help=/data/pushkare/computational_paper/GITHUB/00.CM_mapping/PHM/PHM_helper;
+path_to_help=./phm;
 
 ## output path:
-output_path=/data/pushkare/computational_paper/GITHUB/00.CM_mapping/PHM;
+output_path=./PHM;
 
 ## input dataset:
 dataset="test_data";
@@ -22,7 +22,7 @@ thresholds=( "0.7" "0.75" "0.8" );
 chromosomes="chr21,chr22";
 
 ## Run PHM on test_data for chr21 and chr22
-sh /data/pushkare/computational_paper/GITHUB/00.CM_mapping/PHM/run_PHM.sh \
+sh ${path_to_help}/run_PHM.sh \
     -c ${chromosomes} \
     -d ${dataset} \
     -p ${phm_dir} \
