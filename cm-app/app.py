@@ -38,15 +38,6 @@ igv_panel.extend(
 )
 
 
-###
-
-
-@app.callback(
-    Output("igv-tracks", "data"),
-    Input("upload-tracks", "contents"),
-    State("upload-tracks", "filename"),
-    State("igv-tracks", "data"),
-)
 def callbacks(_app):
     @_app.callback(
         Output("igv-output", "children"),
@@ -73,7 +64,7 @@ def callbacks(_app):
                 file_name=file_name,
                 tracks_state=tracks_state,
             )
-            html.Div(
+            return html.Div(
                 children=[
                     dash_bio.Igv(
                         id="igv-chart",
@@ -93,9 +84,9 @@ def callbacks(_app):
             #     tracks_state=tracks_state,
             # )
 
-    @_app.callback(Output("igv-chart", "tracks"), Input("igv-tracks", "data"))
-    def update_igv_chart_tracks(updated_tracks):
-        return updated_tracks
+    # @_app.callback(Output("igv-chart", "tracks"), Input("igv-tracks", "data"))
+    # def update_igv_chart_tracks(updated_tracks):
+    #     return updated_tracks
 
 
 app = app_layout.run_standalone_app(dash_cm_app.layout(igv_panel), callbacks)
