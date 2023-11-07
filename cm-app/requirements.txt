@@ -1,0 +1,4 @@
+dash==2.9.1
+dash-bio==1.0.2
+dash_mantine_components==0.12.1
+flask==2.3.2
