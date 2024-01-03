@@ -14,6 +14,8 @@ enrichment in 3D contacts,
 in a coordinated fashion with transcriptional
 activity being a strong predictor of module formation.
 
+Explore CMs [online](https://chromo.epfl.ch/)!
+
 For more details, please refer to [van Mierlo, Pushkarev, Trends in Genetics, 2023](https://www.cell.com/trends/genetics/fulltext/S0168-9525(22)00290-6).
 
 This repository contains:
