@@ -27,8 +27,7 @@ CM mapping steps:
 2. Clone the repo, adapt the paths to scripts, input and output files in one of the bash scripts that you want to use: VCMtools.sh, Clomics.sh, or PHM.sh.
 
 **Upcoming updates:**
-1. Web sever with data acceess (in Deployment)
-2. Tutorial on CM mapping
-3. Methods for CM reproducibility/similarity scoring
-4. CM simulation strategy
+1. Tutorial on CM mapping
+2. Methods for CM reproducibility/similarity scoring
+3. CM simulation strategy
  
