@@ -51,7 +51,7 @@ This repository contains:
 
 **III. CM exploration:**
 
-1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM peaks can be found in *[...]CM.content.txt*
+1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM content, namely CM peak IDs, can be found in *[...]CM.content.txt*
 
 
 _**Upcoming updates**_
