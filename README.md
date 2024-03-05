@@ -27,6 +27,7 @@ This repository contains:
     2. Data preparation
         a. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
         b. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+        
         | #Chr | start    | end      | pid                     | did                     | strand | sample_id_1 | sample_id_2 | ... |
         | ---- | -------- | -------- | ----------------------- | ----------------------- | ------ | ----------- | ----------- |
         | 22   | 16192326 | 16192745 | chr22:16192326:16192745 | chr22:16192326:16192745 | +      | -0.212      | -0.175      | ... |
