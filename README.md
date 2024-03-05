@@ -13,7 +13,6 @@ enrichment in 3D contacts,
 > - deposition of histone modifications and binding of TFs in such regions
 in a coordinated fashion with transcriptional
 activity being a strong predictor of module formation.
-
 > For more details, please refer to [this review](https://www.cell.com/trends/genetics/fulltext/S0168-9525(22)00290-6).
 
 Explore CMs [online](https://chromo.epfl.ch/)!
