@@ -40,6 +40,7 @@ This repository contains:
 3. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
 
 **II. CM mapping:**
+
 1. Clomics
     i. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
     ii. Adjust paths and parameters in the clomics_example.sh file
@@ -47,7 +48,9 @@ This repository contains:
 3. PHM
     i. Install [PHM](https://github.com/natsuhiko/PHM)
     ii. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+
 **III. CM exploration:**
+
 1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM peaks can be found in *[...]CM.content.txt*
 
 
