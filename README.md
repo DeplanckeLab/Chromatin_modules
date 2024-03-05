@@ -1,5 +1,6 @@
 This repository contains the code for the paper "Non-coding variants impact cis-regulatory coordination in a cell type-specific manner".
-> [!Chromatin modules (CMs)]
+
+> [!NOTE]
 > _**Chromatin modules**_ (CMs) represent sub-TAD hubs encompassing interactions
 between cis-regulatory elements, such as promoters and enhancers.
 > CMs are charachterized by
