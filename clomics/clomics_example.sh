@@ -15,10 +15,10 @@ n_peaks="200";  ## default n_peaks="200"
 n_cores=1;  ## default n_cores=1
 
 ## Specify chromosomes to use for CM mapping
-chromosomes="22";  ## dash defines a range; default range is "1-22";
+chromosomes="22";  ## dash defines a range, default is all chromosomes"1-22";
 ## Alternatively, "chromosomes" parameter can be defined as
-## "1,5,10" (without spaces) when defining, in this example, three chromosomes
-## or "22", when using single chromosome
+## "1,5,10" (without spaces) when using, in this example, three chromosomes;
+## or "22", when using a single chromosome
 
 ## Specify cell type/dataset name
 dataset_name="test_data_chr22";
