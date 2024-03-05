@@ -27,8 +27,8 @@ This repository contains:
 
 1. Clone the Chromatin modules repository
 2. Data preparation
-    i. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
-    ii. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+    1. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
+    2. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
 
 | #Chr | start    | end      | pid                     | did                     | strand | sample_id_1 | sample_id_2 | ... |
 | ---- | -------- | -------- | ----------------------- | ----------------------- | ------ | ----------- | ----------- | --- |
@@ -42,12 +42,12 @@ This repository contains:
 **II. CM mapping:**
 
 1. Clomics
-   i. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
-   ii. Adjust paths and parameters in the clomics_example.sh file
+    1. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
+    2. Adjust paths and parameters in the clomics_example.sh file
 3. VCMtools
 4. PHM
-   i. Install [PHM](https://github.com/natsuhiko/PHM)
-   ii. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+   1. Install [PHM](https://github.com/natsuhiko/PHM)
+   2. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
 
 **III. CM exploration:**
 
