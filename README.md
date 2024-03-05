@@ -42,12 +42,12 @@ This repository contains:
 **II. CM mapping:**
 
 1. Clomics
-    1. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
-    2. Adjust paths and parameters in the clomics_example.sh file
-2. VCMtools
-3. PHM
-    1. Install [PHM](https://github.com/natsuhiko/PHM)
-    2. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+   i. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
+   ii. Adjust paths and parameters in the clomics_example.sh file
+3. VCMtools
+4. PHM
+   i. Install [PHM](https://github.com/natsuhiko/PHM)
+   ii. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
 
 **III. CM exploration:**
 
