@@ -1,4 +1,3 @@
-# Chromatin modules  across cell types
 This repository contains the code for the paper "Non-coding variants impact cis-regulatory coordination in a cell type-specific manner".
 
 _**Chromatin modules**_ (CMs) represent sub-TAD hubs encompassing interactions
@@ -14,20 +13,41 @@ enrichment in 3D contacts,
 in a coordinated fashion with transcriptional
 activity being a strong predictor of module formation.
 
-Explore CMs [online](https://chromo.epfl.ch/)!
+For more details, please refer to [this review](https://www.cell.com/trends/genetics/fulltext/S0168-9525(22)00290-6).
 
-For more details, please refer to [van Mierlo, Pushkarev, Trends in Genetics, 2023](https://www.cell.com/trends/genetics/fulltext/S0168-9525(22)00290-6).
+Explore CMs [online](https://chromo.epfl.ch/)!
 
 This repository contains:
 1. Input data used for CM mapping
 2. Scripts for CM mapping with [VCMtools](https://doi.org/10.1016/j.cell.2015.08.001), [Clomics](https://www.science.org/doi/10.1126/science.aat8266) and [PHM](https://www.nature.com/articles/s41588-018-0278-6)
 
-CM mapping steps:
-1. Install [Clomics](https://github.com/odelaneau/clomics) and/or [PHM](https://github.com/natsuhiko/PHM).
-2. Clone the repo, adapt the paths to scripts, input and output files in one of the bash scripts that you want to use: VCMtools.sh, Clomics.sh, or PHM.sh.
+# Data preparation and CM mapping
+**I. Preparation steps:**
+    1. Clone the Chromatin modules repository
+    2. Data preparation
+        a. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
+        b. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+        | #Chr | start    | end      | pid                     | did                     | strand | sample_id_1 | sample_id_2 | ... |
+        | ---- | -------- | -------- | ----------------------- | ----------------------- | ------ | ----------- | ----------- |
+        | 22   | 16192326 | 16192745 | chr22:16192326:16192745 | chr22:16192326:16192745 | +      | -0.212      | -0.175      | ... |
+        | 22   | 16204838 | 16205246 | chr22:16204838:16205246 | chr22:16204838:16205246 | +      | -0.221      | 0.339       | ... |
+        | 22   | 16293852 | 16294075 | chr22:16293852:16294075 | chr22:16293852:16294075 | +      | -0.038      | 0.0989      | ... |
 
-**Upcoming updates:**
-1. Tutorial on CM mapping
-2. Methods for CM reproducibility/similarity scoring
-3. CM simulation strategy
+        c^*. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
+
+**II. CM mapping:**
+    1. Clomics
+        a. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
+        b. Adjust paths and parameters in the clomics_example.sh file
+    2. VCMtools
+    3. PHM
+        a. Install [PHM](https://github.com/natsuhiko/PHM)
+        b. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+**III. CM exploration:**
+    1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM peaks can be found in *[...]CM.content.txt*
+
+
+_**Upcoming updates**_
+    1. Methods for CM reproducibility/similarity scoring
+    2. CM simulation strategy
  
