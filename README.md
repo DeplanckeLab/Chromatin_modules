@@ -27,8 +27,8 @@ This repository contains:
 
 1. Clone the Chromatin modules repository
 2. Data preparation
-    i. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
-    ii. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+    a. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
+    b. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
 
 | #Chr | start    | end      | pid                     | did                     | strand | sample_id_1 | sample_id_2 | ... |
 | ---- | -------- | -------- | ----------------------- | ----------------------- | ------ | ----------- | ----------- | --- |
@@ -37,16 +37,16 @@ This repository contains:
 | 22   | 16293852 | 16294075 | chr22:16293852:16294075 | chr22:16293852:16294075 | +      | -0.038      | 0.0989      | ... |
 
 
-3. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
+c. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
 
 **II. CM mapping:**
 1. Clomics
-    1. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
-    2. Adjust paths and parameters in the clomics_example.sh file
+    a. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
+    b. Adjust paths and parameters in the clomics_example.sh file
 2. VCMtools
 3. PHM
-    1. Install [PHM](https://github.com/natsuhiko/PHM)
-    2. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+    a. Install [PHM](https://github.com/natsuhiko/PHM)
+    b. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
 **III. CM exploration:**
 1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM peaks can be found in *[...]CM.content.txt*
 
