@@ -43,11 +43,11 @@ This repository contains:
 
 1. Clomics
     1. Install [Clomics-2.0](https://github.com/OlgaPushkarev/clomics-2.0)
-    2. Adjust paths and parameters in the clomics_example.sh file
+    2. Adjust paths and parameters in the [clomics_example.sh](./clomics/clomics_example.sh) file
 3. VCMtools
 4. PHM
    1. Install [PHM](https://github.com/natsuhiko/PHM)
-   2. Prepare data in a PHM-specific format, following the steps explained in [this notebook]().
+   2. Prepare data in a PHM-specific format, following the steps explained in [this notebook](./phm/0.phm_data_preparation.ipynb).
 
 **III. CM exploration:**
 
