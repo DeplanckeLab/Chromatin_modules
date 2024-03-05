@@ -19,6 +19,14 @@ parser.add_argument(
     required=True,
 )
 parser.add_argument(
+    "-o",
+    "--path_to_output_directory",
+    type=str,
+    help="Path to output folder",
+    default="path_to_input",
+    required=False,
+)
+parser.add_argument(
     "-t",
     "--pp_threshold",
     type=str,
@@ -34,10 +42,14 @@ args = parser.parse_args()
 
 # Arguments
 dataset = args.dataset
-path_to_input_directory = args.path_to_input_directory
 pp_threshold = float(args.pp_threshold)
 chromosomes_str = args.chromosomes
-path_to_output_directory = path_to_input_directory
+
+path_to_input_directory = args.path_to_input_directory
+
+path_to_output_directory = args.path_to_output_directory
+if path_to_output_directory == "path_to_input":
+    path_to_output_directory = path_to_input_directory
 
 if "," in chromosomes_str:
     if not "chr" in chromosomes_str.split(",")[0]:
@@ -69,16 +81,22 @@ logging.info("\nList of arguments:\n")
 logging.info("Input:")
 logging.info("\t 1. Input dataset: " + dataset)
 path_to_input_directory = path_to_input_directory.replace("\\", "/")
+path_to_output_directory = path_to_output_directory.replace("\\", "/")
 logging.info("\t 2. Path to input files): " + path_to_input_directory)
 logging.info("\n")
 logging.info("Output:")
-logging.info("\t 1. Path to output files: " + path_to_input_directory)
+logging.info("\t 1. Path to output files: " + path_to_output_directory)
 
 for chromosome in tqdm.tqdm(chromosomes):
     build_dags(
-        path_to_output_directory, chromosome, pp_threshold, dataset, save_files=True
+        path_to_input_directory,
+        chromosome,
+        pp_threshold,
+        dataset,
+        save_files=True,
+        output_path=path_to_output_directory,
     )
 
 logging.info(
-    "Next step: merge DAGs, track and content files across all chromosomes with 2.get_VCMs_from_DAGs.py"
+    "Next step: merge DAGs, track and content files across all chromosomes with 2.get_sCMs_from_DAGs.py"
 )

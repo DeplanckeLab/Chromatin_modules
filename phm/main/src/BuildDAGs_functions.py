@@ -6,6 +6,7 @@ import operator
 import os
 import pandas as pd
 import signal
+import sys
 
 
 class TimeoutException(Exception):
@@ -125,7 +126,11 @@ def merge_intersecting_intervals(list_of_pairs):
     return merged_intervals
 
 
-def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
+def build_dags(
+    input_path, chromosome, threshold, dataset, save_files=False, output_path=None
+):
+    if output_path is None:
+        output_path = input_path
     peak_coordinates = pd.read_csv(
         os.path.join(
             input_path, chromosome, "_".join([chromosome, "peak_coordinates.bed.gz"])
@@ -150,7 +155,7 @@ def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
         + peak_coordinates["end"].astype(str)
     )
     pp = pd.read_csv(
-        os.path.join(input_path, chromosome, "phm_output", "pp.gz"),
+        os.path.join(output_path, chromosome, "phm_output", "pp.gz"),
         sep="\t",
         header=None,
     )
@@ -175,7 +180,7 @@ def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
     if save_files:
         pp_filtered.to_csv(
             os.path.join(
-                input_path,
+                output_path,
                 chromosome,
                 "phm_output",
                 "_".join(["pp_filtered_causality", str(threshold), "threshold.gz"]),
@@ -267,7 +272,7 @@ def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
         phm_tracks_bed = pd.DataFrame(list_with_tracks)
         phm_tracks_bed.to_csv(
             os.path.join(
-                input_path,
+                output_path,
                 chromosome,
                 "_".join([dataset, str(threshold), "phm.tracks.bed"]),
             ),
@@ -279,7 +284,7 @@ def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
         phm_content = pd.DataFrame(list_with_contents)
         phm_content.to_csv(
             os.path.join(
-                input_path,
+                output_path,
                 chromosome,
                 "_".join([dataset, str(threshold), "phm.content.txt"]),
             ),
@@ -297,7 +302,7 @@ def build_dags(input_path, chromosome, threshold, dataset, save_files=False):
     if save_files:
         dag_df.to_csv(
             os.path.join(
-                input_path,
+                output_path,
                 chromosome,
                 "_".join(["DAGs_all_chr", str(threshold), "threshold.csv"]),
             ),

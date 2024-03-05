@@ -1,8 +1,9 @@
 import os
 import pandas as pd
+import sys
 
 
-class DAG2CM:
+class DAG2VCM:
     def __init__(self, core_path, chromosomes, threshold, dataset):
         self.core_path = core_path
         self.chromosomes = chromosomes
