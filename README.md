@@ -34,7 +34,7 @@ This repository contains:
         | 22   | 16204838 | 16205246 | chr22:16204838:16205246 | chr22:16204838:16205246 | +      | -0.221      | 0.339       | ... |
         | 22   | 16293852 | 16294075 | chr22:16293852:16294075 | chr22:16293852:16294075 | +      | -0.038      | 0.0989      | ... |
 
-        c^*. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
+        c. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
 
 **II. CM mapping:**
     1. Clomics
