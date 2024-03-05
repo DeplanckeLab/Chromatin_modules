@@ -22,11 +22,14 @@ This repository contains:
 2. Scripts for CM mapping with [VCMtools](https://doi.org/10.1016/j.cell.2015.08.001), [Clomics](https://www.science.org/doi/10.1126/science.aat8266) and [PHM](https://www.nature.com/articles/s41588-018-0278-6)
 
 # Data preparation and CM mapping
+
 **I. Preparation steps:**
+
     1. Clone the Chromatin modules repository
     2. Data preparation
-    a. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
-    b. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+        a. Download [test data](https://github.com/DeplanckeLab/Chromatin_modules/tree/main/test_data) for [LCLs](), chr22, or use your own data
+        b. Make sure to have ChIP-seq data (*used in all methods*) in the following format:
+        
         
         | #Chr | start    | end      | pid                     | did                     | strand | sample_id_1 | sample_id_2 | ... |
         | ---- | -------- | -------- | ----------------------- | ----------------------- | ------ | ----------- | ----------- |
@@ -34,7 +37,7 @@ This repository contains:
         | 22   | 16204838 | 16205246 | chr22:16204838:16205246 | chr22:16204838:16205246 | +      | -0.221      | 0.339       | ... |
         | 22   | 16293852 | 16294075 | chr22:16293852:16294075 | chr22:16293852:16294075 | +      | -0.038      | 0.0989      | ... |
 
-    c. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
+c. Genotype data in VCF files (*used in PHM*), see section 3 of [this]() notebook on PHM-specific data preparation
 
 **II. CM mapping:**
     1. Clomics
