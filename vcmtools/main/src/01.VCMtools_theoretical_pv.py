@@ -4,12 +4,19 @@ import multiprocessing as mp
 import numpy as np
 import os
 import pandas as pd
-import scipy.stats as stats
+import utils
 
 parser = argparse.ArgumentParser(
     description="Get peak correlations and theoretical p-values ©Olga Pushkarev"
 )
 parser.add_argument("-d", "--dataset", type=str, help="Input dataset", required=True)
+parser.add_argument(
+    "-m",
+    "--max_peak_dist",
+    help="Maximum distance between peak centers",
+    default=0.5,
+    required=False,
+)
 parser.add_argument(
     "-i",
     "--path_to_input_directory",
@@ -44,6 +51,7 @@ args = parser.parse_args()
 
 # Arguments
 dataset = args.dataset
+max_peak_dist = float(args.max_peak_dist) * (10**6)
 path_to_input_directory = args.path_to_input_directory
 input_files = args.input_files
 chromosomes_str = args.chromosomes
@@ -89,54 +97,6 @@ logging.info(
     "\t 1. Output directory for correlation files: " + path_to_output_directory
 )
 logging.info("\n")
-
-
-def process_different_marks_pv(
-    path_to_output_directory, dataset, dict_for_chr, max_dist=0.5 * (10**6)
-):
-    with open(
-        os.path.join(
-            path_to_output_directory,
-            dataset + "_VCMtools_theoretical_corr_with_p_values.txt",
-        ),
-        "a+",
-    ) as file_with_corr:
-        for peak1, peak1_values in dict_for_chr.items():
-            peak1_variables = peak1.split(":")
-            mark1 = peak1_variables[0]
-            peak1_start = int(peak1_variables[2])
-            peak1_end = int(peak1_variables[3])
-            peak1_center = peak1_start + (peak1_end - peak1_start) / 2
-            for peak2, peak2_values in dict_for_chr.items():
-                peak2_variables = peak2.split(":")
-                mark2 = peak2_variables[0]
-                peak2_start = int(peak2_variables[2])
-                peak2_end = int(peak2_variables[3])
-                peak2_center = peak2_start + (peak2_end - peak2_start) / 2
-                try:
-                    if (peak1 != peak2) and (
-                        abs(peak1_center - peak2_center) <= max_dist
-                    ):
-                        x = np.array(peak1_values)
-                        y = np.array(peak2_values)
-                        mask = ~np.isnan(x) & ~np.isnan(y)
-                        x = x[mask]
-                        y = y[mask]
-                        theoretical_correlation, p_value = stats.pearsonr(x, y)
-                        file_with_corr.write(
-                            "\t".join(
-                                [
-                                    peak1,
-                                    peak2,
-                                    str(theoretical_correlation),
-                                    str(p_value),
-                                ]
-                            )
-                            + "\n"
-                        )
-                except:
-                    continue
-
 
 # chromosomes = [str(i) for i in range(1, 23)]
 dict_with_count_matrices = {}
@@ -187,7 +147,7 @@ counts_for_chr_dict = {}
 for chromosome in chromosomes:
     all_data_df_chr = pd.concat(
         [
-            mark_df[mark_df["#Chr"] == chromosome]
+            mark_df[mark_df.loc[:, "#Chr"] == chromosome]
             for mark, mark_df in dict_with_dataset_dfs.items()
         ],
         axis=0,
@@ -202,7 +162,8 @@ with mp.Pool(processes=int(n_cores)) as pool:
     # starts the sub-processes without blocking
     proc_results = [
         pool.apply_async(
-            process_different_marks_pv, args=(path_to_output_directory, dataset, chunk)
+            utils.process_different_marks_pv,
+            args=(path_to_output_directory, dataset, chunk, max_peak_dist),
         )
         for chromosome, chunk in counts_for_chr_dict.items()
     ]

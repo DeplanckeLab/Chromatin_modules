@@ -5,12 +5,14 @@ import statsmodels.stats.multitest as multi
 import tqdm
 
 
-class edgelist2CMs:
+class edgelist2VCMs:
     def __init__(self, output_path, remove_totem, save_files, save_meta):
         self.output_path = output_path
         self.remove_totem = remove_totem
         self.save_files = save_files
         self.save_meta = save_meta
+        if not os.path.exists(self.output_path):
+            os.makedirs(self.output_path)
 
     @staticmethod
     def connected_tuples(pairs):
@@ -64,10 +66,8 @@ class edgelist2CMs:
                     merged_intervals.append((pair[0], pair[1]))
         return merged_intervals
 
-    def save_dict(self, file_name, dataset, dictionary):
-        if not os.path.exists(os.path.join(self.output_path, dataset)):
-            os.makedirs(os.path.join(self.output_path, dataset))
-        np.save(os.path.join(self.output_path, dataset, file_name), dictionary)
+    def save_dict(self, file_name, dictionary):
+        np.save(os.path.join(self.output_path, file_name), dictionary)
 
     @staticmethod
     def load_corr_edgelist(
@@ -88,7 +88,7 @@ class edgelist2CMs:
         all_pv_df.loc[:, "pvals_corrected"] = pvals_corrected
         return all_pv_df[all_pv_df.loc[:, "pvals_corrected"] <= pv_threshold]
 
-    def get_CMs(self, dataset, pv_filtered_corr_edgelist, pvalue_threshold):
+    def get_VCMs(self, dataset, pv_filtered_corr_edgelist, pvalue_threshold):
         connected_components = self.connected_tuples(
             list(zip(pv_filtered_corr_edgelist.peak1, pv_filtered_corr_edgelist.peak2))
         )
@@ -97,115 +97,115 @@ class edgelist2CMs:
                 "chr",
                 "start",
                 "end",
-                "CM_id",
+                "VCM_id",
                 "number",
                 "strain",
                 "start_duplicate",
                 "end_duplicate",
                 "numbers",
-                "CM_size",
+                "VCM_size",
                 "peak_length",
                 "peak_starts",
-                "totem_CM",
+                "totem_VCM",
             ],
             index=np.arange(len(connected_components)),
         )
-        cm_content = pd.DataFrame(
-            columns=["CM_id", "CM_size", "peaks"],
+        vcm_content = pd.DataFrame(
+            columns=["VCM_id", "VCM_size", "peaks"],
             index=np.arange(len(connected_components)),
         )
-        for index, cm in tqdm.tqdm(enumerate(connected_components)):
+        for index, vcm in tqdm.tqdm(enumerate(connected_components)):
             start_end = sorted(
-                [(int(peak.split(":")[-2]), int(peak.split(":")[-1])) for peak in cm],
+                [(int(peak.split(":")[-2]), int(peak.split(":")[-1])) for peak in vcm],
                 key=lambda x: x[0],
             )
 
             start = np.array([pair[0] for pair in start_end])
             peak_starts = list(start - min(start_end, key=lambda x: x[0])[0])
 
-            cm_content["CM_id"].loc[index] = "cm" + str(index)
-            cm_content["CM_size"].loc[index] = int(len(cm))
-            cm_content["peaks"].loc[index] = ",".join(cm)
+            vcm_content["VCM_id"].loc[index] = "vcm" + str(index)
+            vcm_content["VCM_size"].loc[index] = int(len(vcm))
+            vcm_content["peaks"].loc[index] = ",".join(vcm)
 
-            if "chr" in str(cm[0].split(":")[1]):
-                bed_df["chr"].loc[index] = str(cm[0].split(":")[1])
+            if "chr" in str(vcm[0].split(":")[1]):
+                bed_df["chr"].loc[index] = str(vcm[0].split(":")[1])
             else:
-                bed_df["chr"].loc[index] = "chr" + str(cm[0].split(":")[1])
+                bed_df["chr"].loc[index] = "chr" + str(vcm[0].split(":")[1])
             bed_df["start"].loc[index] = min(start_end, key=lambda x: x[0])[0]
             bed_df["end"].loc[index] = max(start_end, key=lambda x: x[1])[1]
-            bed_df["CM_id"].loc[index] = "cm" + str(index)
+            bed_df["VCM_id"].loc[index] = "vcm" + str(index)
             bed_df["number"].loc[index] = int(1000)
             bed_df["strain"].loc[index] = "+"
             bed_df["start_duplicate"].loc[index] = min(start_end, key=lambda x: x[0])[0]
             bed_df["end_duplicate"].loc[index] = max(start_end, key=lambda x: x[1])[1]
             bed_df["numbers"].loc[index] = "0,0,0"
-            bed_df["CM_size"].loc[index] = int(len(cm))
+            bed_df["VCM_size"].loc[index] = int(len(vcm))
             bed_df["peak_length"].loc[index] = ",".join(
                 map(str, [j - i for i, j in start_end])
             )
             bed_df["peak_starts"].loc[index] = ",".join(map(str, peak_starts))
-            bed_df["totem_CM"].loc[index] = (
+            bed_df["totem_VCM"].loc[index] = (
                 1 if len(self.merge_intersecting_intervals(start_end)) == 1 else 0
             )
 
         if bed_df.shape[0] == 0:
             return pd.DataFrame(), pd.DataFrame(), {}
 
-        if not "chr" in cm_content.iloc[0, 2]:
+        if not "chr" in vcm_content.iloc[0, 2]:
             for i in list(range(1, 23)) + ["X", "Y"]:
-                cm_content["peaks"] = cm_content["peaks"].str.replace(
+                vcm_content["peaks"] = vcm_content["peaks"].str.replace(
                     ":" + str(i) + ":", ":chr" + str(i) + ":"
                 )
         sorted_bed_df = bed_df.sort_values(["chr", "start"]).copy()
-        cm_content = cm_content.set_index("CM_id")
-        sorted_cm_content = cm_content.loc[sorted_bed_df["CM_id"].copy()].copy()
-        sorted_bed_df["CM_id"] = [
-            "cm" + str(cm_int_idx) for cm_int_idx in np.arange(sorted_bed_df.shape[0])
+        vcm_content = vcm_content.set_index("VCM_id")
+        sorted_vcm_content = vcm_content.loc[sorted_bed_df["VCM_id"].copy()].copy()
+        sorted_bed_df["VCM_id"] = [
+            "vcm" + str(vcm_int_idx)
+            for vcm_int_idx in np.arange(sorted_bed_df.shape[0])
         ]
-        sorted_cm_content["new_CM_id"] = [
-            "cm" + str(cm_int_idx)
-            for cm_int_idx in np.arange(sorted_cm_content.shape[0])
+        sorted_vcm_content["new_VCM_id"] = [
+            "vcm" + str(vcm_int_idx)
+            for vcm_int_idx in np.arange(sorted_vcm_content.shape[0])
         ]
-        sorted_cm_content = sorted_cm_content[["new_CM_id", "CM_size", "peaks"]]
-        sorted_cm_content.columns = ["CM_id", "CM_size", "peaks"]
+        sorted_vcm_content = sorted_vcm_content[["new_VCM_id", "VCM_size", "peaks"]]
+        sorted_vcm_content.columns = ["VCM_id", "VCM_size", "peaks"]
         if self.remove_totem:
-            final_cm_tracks = sorted_bed_df[sorted_bed_df.loc[:, "totem_CM"] == 0]
-            final_cm_content = sorted_cm_content[
-                sorted_cm_content.loc[:, "CM_id"].isin(final_cm_tracks.loc[:, "CM_id"])
+            final_vcm_tracks = sorted_bed_df[sorted_bed_df.loc[:, "totem_VCM"] == 0]
+            final_vcm_content = sorted_vcm_content[
+                sorted_vcm_content.loc[:, "VCM_id"].isin(
+                    final_vcm_tracks.loc[:, "VCM_id"]
+                )
             ]
         else:
-            final_cm_tracks = sorted_bed_df
-            final_cm_content = sorted_cm_content
+            final_vcm_tracks = sorted_bed_df
+            final_vcm_content = sorted_vcm_content
         meta_dict = dict()
         if self.save_meta:
             if len(connected_components) != 0:
-                meta_dict["nCMs"] = len(connected_components)
+                meta_dict["nVCMs"] = len(connected_components)
                 meta_dict["mean_abs_corr"] = np.mean(
                     abs(pv_filtered_corr_edgelist["corr"])
                 )
-                meta_dict["CM_lengths"] = list(
-                    final_cm_tracks.loc[:, "end"] - final_cm_tracks.loc[:, "start"]
+                meta_dict["VCM_lengths"] = list(
+                    final_vcm_tracks.loc[:, "end"] - final_vcm_tracks.loc[:, "start"]
                 )
-                meta_dict["CM_sizes"] = list(final_cm_tracks.loc[:, "CM_size"])
+                meta_dict["VCM_sizes"] = list(final_vcm_tracks.loc[:, "VCM_size"])
             else:
-                meta_dict["nCMs"] = 0
+                meta_dict["nVCMs"] = 0
                 meta_dict["mean_abs_corr"] = np.nan
-                meta_dict["CM_lengths"] = []
-                meta_dict["CM_sizes"] = []
+                meta_dict["VCM_lengths"] = []
+                meta_dict["VCM_sizes"] = []
 
         if self.save_files:
-            if not os.path.exists(os.path.join(self.output_path, dataset)):
-                os.makedirs(os.path.join(self.output_path, dataset))
             if self.remove_totem:
                 suffix = "NOT_TOTEM"
                 sorted_bed_df.to_csv(
                     os.path.join(
                         self.output_path,
-                        dataset,
                         "_".join(
                             [
                                 dataset,
-                                "all_VCMtools_CMs_corrected_pvalue",
+                                "all_VCMs_corrected_pvalue",
                                 str(pvalue_threshold) + ".tracks.bed",
                             ]
                         ),
@@ -214,14 +214,13 @@ class edgelist2CMs:
                     header=False,
                     index=False,
                 )
-                sorted_cm_content.to_csv(
+                sorted_vcm_content.to_csv(
                     os.path.join(
                         self.output_path,
-                        dataset,
                         "_".join(
                             [
                                 dataset,
-                                "all_VCMtools_CMs_corrected_pvalue",
+                                "all_VCMs_corrected_pvalue",
                                 str(pvalue_threshold) + ".content.txt",
                             ]
                         ),
@@ -232,15 +231,14 @@ class edgelist2CMs:
                 )
             else:
                 suffix = "all"
-            final_cm_tracks.to_csv(
+            final_vcm_tracks.to_csv(
                 os.path.join(
                     self.output_path,
-                    dataset,
                     "_".join(
                         [
                             dataset,
                             suffix,
-                            "VCMtools_CMs_corrected_pvalue",
+                            "VCMs_corrected_pvalue",
                             str(pvalue_threshold) + ".tracks.bed",
                         ]
                     ),
@@ -249,15 +247,14 @@ class edgelist2CMs:
                 header=False,
                 index=False,
             )
-            final_cm_content.to_csv(
+            final_vcm_content.to_csv(
                 os.path.join(
                     self.output_path,
-                    dataset,
                     "_".join(
                         [
                             dataset,
                             suffix,
-                            "VCMtools_CMs_corrected_pvalue",
+                            "VCMs_corrected_pvalue",
                             str(pvalue_threshold) + ".content.txt",
                         ]
                     ),
@@ -266,4 +263,4 @@ class edgelist2CMs:
                 header=False,
                 index=False,
             )
-        return final_cm_tracks, final_cm_content, meta_dict
+        return final_vcm_tracks, final_vcm_content, meta_dict

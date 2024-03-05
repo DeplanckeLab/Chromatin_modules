@@ -2,10 +2,10 @@ import argparse
 import logging
 import os
 
-from edgelist2CMs import edgelist2CMs
+from edgelist2VCMs import edgelist2VCMs
 
 parser = argparse.ArgumentParser(
-    description="VCMtools: Build CMs from correlation edgelist ©Olga Pushkarev"
+    description="Build VCMs from correlation edgelist ©Olga Pushkarev"
 )
 parser.add_argument("-d", "--dataset", type=str, help="Input dataset", required=True)
 parser.add_argument(
@@ -25,15 +25,17 @@ parser.add_argument(
     "-t",
     "--remove_totem",
     type=int,
-    help="Remove totem CMs from the analysis",
-    required=True,
+    help="Remove totem VCMs from the analysis",
+    default=1,
+    required=False,
 )
 parser.add_argument(
     "-f",
     "--save_files",
-    help="Save CM track and content files",
+    help="Save CM tracks and content files",
     type=int,
-    required=True,
+    default=1,
+    required=False,
 )
 parser.add_argument(
     "-m",
@@ -46,7 +48,7 @@ parser.add_argument(
     "-o",
     "--output_path",
     type=str,
-    help="Output directory for CM track and content files",
+    help="Output directory for CM tracks and content files",
     required=True,
 )
 
@@ -73,54 +75,49 @@ logging.basicConfig(
     format="%(asctime)s %(message)s",
     filemode="a",
 )
-logging.info("#################################################################")
-logging.info("# VCMtools: Build CMs from correlation edgelist ©Olga Pushkarev #")
-logging.info("#################################################################")
+logging.info("########################################################")
+logging.info("# Build VCMs from correlation edgelist ©Olga Pushkarev #")
+logging.info("########################################################")
 logging.info("\nList of arguments:\n")
 logging.info("Input:")
 logging.info("\t 1. Input dataset: " + dataset)
 logging.info("\t 2. Using the following p-value thresholds: " + ", ".join(pvalue_list))
 logging.info("\t 3. Path to correlation edgelist: " + path_to_correlation_edgelist)
-logging.info("\t 4. Removing totem CMs: " + str(remove_totem))
-logging.info("\t 5. Saving CM tracks and content files: " + str(save_files))
-logging.info("\t 6. Saving meta information for CMs: " + str(save_meta))
+logging.info("\t 4. Removing totem VCMs: " + str(remove_totem))
+logging.info("\t 5. Saving VCM tracks and content files: " + str(save_files))
+logging.info("\t 6. Saving meta information for VCMs: " + str(save_meta))
 logging.info("\n")
 logging.info(
-    "\t 1. Output directory for CM tracks and content files: "
+    "\t 1. Output directory for VCM tracks and content files: "
     + path_to_output_directory
 )
 logging.info("\n")
 
-edgelist_to_cms = edgelist2CMs(
+edgelist_to_vcms = edgelist2VCMs(
     output_path=path_to_output_directory,
     remove_totem=remove_totem,
     save_files=save_files,
     save_meta=save_meta,
 )
-all_correlations_df = edgelist_to_cms.load_corr_edgelist(path_to_correlation_edgelist)
+all_correlations_df = edgelist_to_vcms.load_corr_edgelist(path_to_correlation_edgelist)
 if len(pvalue_list) > 1:
     for pv in pvalue_list:
-        corrected_pv_df = edgelist_to_cms.correct_pv(all_correlations_df, float(pv))
+        corrected_pv_df = edgelist_to_vcms.correct_pv(all_correlations_df, float(pv))
 
-        _, _, meta_dict = edgelist_to_cms.get_CMs(dataset, corrected_pv_df, str(pv))
+        _, _, meta_dict = edgelist_to_vcms.get_VCMs(dataset, corrected_pv_df, str(pv))
         if save_meta:
-            edgelist_to_cms.save_dict(
-                "_".join("stats_for_VCMtools", str(pv), "treshold.npy"),
-                path_to_output_directory,
-                meta_dict,
+            edgelist_to_vcms.save_dict(
+                "_".join(["stats_for_VCMs", str(pv), "treshold.npy"]), meta_dict
             )
 else:
-    corrected_pv_df = edgelist_to_cms.correct_pv(
+    corrected_pv_df = edgelist_to_vcms.correct_pv(
         all_correlations_df, float(pvalue_list[0])
     )
-    _, _, meta_dict = edgelist_to_cms.get_CMs(
+    _, _, meta_dict = edgelist_to_vcms.get_VCMs(
         dataset, corrected_pv_df, str(pvalue_list[0])
     )
     if save_meta:
-        edgelist_to_cms.save_dict(
-            "_".join(
-                [dataset, "stats_for_VCMtools", str(pvalue_list[0]), "treshold.npy"]
-            ),
-            dataset,
+        edgelist_to_vcms.save_dict(
+            "_".join([dataset, "stats_for_VCMs", str(pvalue_list[0]), "treshold.npy"]),
             meta_dict,
         )

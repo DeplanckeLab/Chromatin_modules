@@ -1,11 +1,10 @@
 import argparse
 import logging
 import os
-import pandas as pd
-import scipy.stats as stats
+import utils
 
 parser = argparse.ArgumentParser(
-    description="VCMtools: Build CMs from correlation edgelist ©Olga Pushkarev"
+    description="Build VCMs from correlation edgelist ©Olga Pushkarev"
 )
 parser.add_argument("-d", "--dataset", type=str, help="Input dataset", required=True)
 parser.add_argument(
@@ -55,35 +54,9 @@ logging.info(
 )
 logging.info("\n")
 
-
-def empirical_pvalue_for_corr(dataset, input_path, output_path):
-    with open(
-        os.path.join(output_path, dataset + "_empirical_corr_p_values.txt"),
-        "a+",
-    ) as file_with_corr:
-        background_distribution = pd.read_csv(input_path, sep="\t", header=None)
-        background_distribution.columns = ["peak1", "peak2", "corr", "pvalue"]
-        background_distribution["peak_pair"] = list(
-            zip(background_distribution["peak1"], background_distribution["peak2"])
-        )
-
-        background_mean = background_distribution["corr"].mean()
-        background_std_dev = background_distribution["corr"].std()
-        dict_with_corr = dict(
-            zip(background_distribution["peak_pair"], background_distribution["corr"])
-        )
-        del background_distribution
-        for peak_pair, corr in dict_with_corr.items():
-            peak1, peak2 = peak_pair
-            p_value = 1 - stats.norm.cdf(corr, background_mean, background_std_dev)
-            file_with_corr.write(
-                "\t".join([peak1, peak2, str(corr), str(p_value)]) + "\n"
-            )
-
-
 input_path = os.path.join(
     path_to_input_directory,
-    dataset + "_VCMtools_theoretical_corr_with_p_values.txt",
+    dataset + "_all_marks_VCM_theoretical_corr_with_p_values.txt",
 )
 
-empirical_pvalue_for_corr(dataset, input_path, path_to_output_directory)
+utils.empirical_pvalue_for_corr(dataset, input_path, path_to_output_directory)
