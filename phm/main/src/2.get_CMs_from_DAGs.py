@@ -16,7 +16,7 @@ parser.add_argument(
     type=str,
     help="Path to folder with count matrices",
     default="path_to_output",
-    required=False
+    required=False,
 )
 parser.add_argument(
     "-o",
@@ -24,7 +24,7 @@ parser.add_argument(
     type=str,
     help="Path to output folder",
     default=0,
-    required=True
+    required=True,
 )
 parser.add_argument(
     "-t",

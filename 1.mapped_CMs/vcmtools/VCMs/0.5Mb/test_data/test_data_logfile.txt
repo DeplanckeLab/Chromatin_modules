@@ -1,0 +1,18 @@
+2024-07-02 11:21:41,222 ########################################################
+2024-07-02 11:21:41,223 # Build VCMs from correlation edgelist ©Olga Pushkarev #
+2024-07-02 11:21:41,223 ########################################################
+2024-07-02 11:21:41,223 
+List of arguments:
+
+2024-07-02 11:21:41,223 Input:
+2024-07-02 11:21:41,223 	 1. Input dataset: test_data
+2024-07-02 11:21:41,223 	 2. Using the following p-value thresholds: 0.001
+2024-07-02 11:21:41,223 	 3. Path to correlation edgelist: ../1.mapped_CMs/vcmtools/empirical_corr_pv/0.5Mb/test_data_all_marks_empirical_corr_p_values.txt
+2024-07-02 11:21:41,223 	 4. Removing totem VCMs: 1
+2024-07-02 11:21:41,223 	 5. Saving VCM tracks and content files: 1
+2024-07-02 11:21:41,223 	 6. Saving meta information for VCMs: False
+2024-07-02 11:21:41,223 
+
+2024-07-02 11:21:41,223 	 1. Output directory for VCM tracks and content files: ../1.mapped_CMs/vcmtools/VCMs/0.5Mb/test_data
+2024-07-02 11:21:41,223 
+

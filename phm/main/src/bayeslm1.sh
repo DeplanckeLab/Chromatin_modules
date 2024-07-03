@@ -1,7 +1,6 @@
-#!/bin/bash
-# Bin ID
+## Bin ID
 BIN=$1
-# Bin width
+## Bin width
 W=$2
 
 K=`expr '(' $BIN '-' 1 ')' "*" $W + 1`
@@ -13,14 +12,12 @@ OUT=$6
 WINDOW=$7
 
 PHMDIR=`printenv PHMDIR`
-
 for I in `sh $PHMDIR/script/extract.sh $PEAK $BIN $W | awk '{print $1";"$2";"$3}'`
 do
         IFS=';'
         set -- $I
     
     PEAKCENTRE=`expr '(' $2 '+' $3 ')' / 2`
-
     $PHMDIR/bin/bayeslm \
         --vcf $VCF \
         --normalised-count $FPKM \

@@ -1,0 +1,32 @@
+2024-07-02 09:51:08,817 ##############################################
+2024-07-02 09:51:08,817 # Build DAGs from PHM output ©Olga Pushkarev #
+2024-07-02 09:51:08,817 ##############################################
+2024-07-02 09:51:08,817 
+List of arguments:
+
+2024-07-02 09:51:08,817 Input:
+2024-07-02 09:51:08,817 	 1. Input dataset: test_data
+2024-07-02 09:51:08,817 	 2. Path to input files): ../1.mapped_CMs/phm
+2024-07-02 09:51:08,817 
+
+2024-07-02 09:51:08,818 Output:
+2024-07-02 09:51:08,818 	 1. Path to output files: ../1.mapped_CMs/phm
+2024-07-02 09:51:09,785 Next step: merge DAGs, track and content files across all chromosomes with 2.get_sCMs_from_DAGs.py
+2024-07-02 09:51:10,253 ####################################################################
+2024-07-02 09:51:10,253 # Build CM-like track and content files from DAGs ©Olga Pushkarev #
+2024-07-02 09:51:10,253 ####################################################################
+2024-07-02 09:51:10,253 
+List of arguments:
+
+2024-07-02 09:51:10,253 Input:
+2024-07-02 09:51:10,253 	 1. Input dataset: test_data
+2024-07-02 09:51:10,253 	 2. Path to input files): ../1.mapped_CMs/phm
+2024-07-02 09:51:10,253 
+
+2024-07-02 09:51:10,253 Output:
+2024-07-02 09:51:10,253 	 1. Path to output files: ../1.mapped_CMs/phm
+2024-07-02 09:51:10,253 
+
+2024-07-02 09:51:10,253 Merging data from all chromosomes...
+2024-07-02 09:51:10,269 Saving merged files...
+2024-07-02 09:51:10,279 File with peaks is missing! Preparing and saving peak coordinates...

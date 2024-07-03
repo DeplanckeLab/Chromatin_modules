@@ -1,15 +1,14 @@
-#!/bin/bash
 Help()
 {
-   # Display Help
+   ## Display Help
    echo "Run PHM pipeline."
    echo "Syntax: PHM.sh [-d|s|w|p|f|v|i|n|o|u|l|r]"
 }
 
-# Get the options
+## Get the options
 while getopts ":d:s:w:p:f:v:i:n:o:u:l:r:" option; do
     case $option in
-        h) # display Help
+        h) ## display Help
             Help
             exit;;
         d) PHMDIR=${OPTARG};;
@@ -24,13 +23,13 @@ while getopts ":d:s:w:p:f:v:i:n:o:u:l:r:" option; do
         u) OUT2=${OPTARG};;
         l) VL=${OPTARG};;
         r) PI1=${OPTARG};;
-        \?) # Invalid option
+        \?) ## Invalid option
             echo "Error: Invalid option"
             exit;;
     esac
 done
 
-# First stage
+## First stage
 echo "First stage"
 NF=`cat $PEAK | gunzip | wc -l | awk '{print $1}'`
 sh ${PATH_TO_SRC}/bayeslm1.sh \
@@ -45,8 +44,7 @@ sh ${PATH_TO_SRC}/bayeslm1.sh \
 R1=`cat $IN1 | gunzip | wc -l | awk '{print $1}'`
 hm -i $IN1 -c I,S,C1,S,S,S,S,S,C2,C3,S,S,B -r $R1 -f $NF -p -o $OUT1 -v
 
-# +
-# Second stage
+## Second stage
 echo "Second stage"
 sh ${PATH_TO_SRC}/bayeslm2.sh \
     1 \

@@ -1,0 +1,27 @@
+2024-07-02 11:01:45,824 ########################################
+2024-07-02 11:01:45,824 # Convert CRDs to CMs ©Olga Pushkarev #
+2024-07-02 11:01:45,824 ########################################
+2024-07-02 11:01:45,824 
+List of arguments:
+
+2024-07-02 11:01:45,824 Input:
+2024-07-02 11:01:45,824 	 1. Input dataset: test_data
+2024-07-02 11:01:45,824 	 2. Input path to Clomics .bed file: ../1.mapped_CMs/clomics/n_peaks_200/bg_threshold_3/test_data/CRD.all.clomics.bed
+2024-07-02 11:01:45,824 
+
+2024-07-02 11:01:45,824 	 1. Output directory for CRDs in CM-like format, i.e. tracks and content files: ../1.mapped_CMs/clomics/n_peaks_200/bg_threshold_3/test_data
+2024-07-02 11:01:45,824 
+
+2024-07-02 11:01:53,286 ########################################
+2024-07-02 11:01:53,286 # Merge CM batches to one batch ©Olga Pushkarev #
+2024-07-02 11:01:53,286 ########################################
+2024-07-02 11:01:53,286 
+List of arguments:
+
+2024-07-02 11:01:53,286 Input:
+2024-07-02 11:01:53,286 	 1. Input dataset: test_data
+2024-07-02 11:01:53,286 
+Output:
+2024-07-02 11:01:53,286 	 1. Output directory for merged and formated batches of CRDs in CM-like format, i.e. tracks and content files: ../1.mapped_CMs/clomics/n_peaks_200/bg_threshold_3/test_data
+2024-07-02 11:01:53,286 
+

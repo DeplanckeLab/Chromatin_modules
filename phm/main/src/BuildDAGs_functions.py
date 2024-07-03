@@ -70,10 +70,10 @@ def find_the_heaviest_hamiltonian_path(G):
                 if w > heaviest_path_dict["path_weight"]:
                     heaviest_path_dict["path"] = path
                     heaviest_path_dict["path_weight"] = w
-    if heaviest_path_dict["path_weight"] == 0:
+    if heaviest_path_dict.get("path_weight") == 0:
         return None
     else:
-        heaviest_path = heaviest_path_dict["path"]
+        heaviest_path = heaviest_path_dict.get("path")
         g = nx.Graph(
             (
                 (u, v, e)
@@ -255,9 +255,9 @@ def build_dags(
                 "cm_size": peak_df.shape[0],
                 "peak_length": ",".join(map(str, [j - i for i, j in start_end])),
                 "peak_starts": ",".join(map(str, peak_starts)),
-                "totem_cm": 1
-                if len(merge_intersecting_intervals(start_end)) == 1
-                else 0,
+                "totem_cm": (
+                    1 if len(merge_intersecting_intervals(start_end)) == 1 else 0
+                ),
             }
         )
 

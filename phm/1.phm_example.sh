@@ -1,8 +1,9 @@
 ## # Specify path to the installed PHM model (https://github.com/natsuhiko/PHM)
-export PHMDIR=./PHM
+export PHMDIR=/data/software/PHM-0.2;
 
+## Assuming the user runs code from the same folder, where 1.phm_example.sh is
 ## # Path to PHM helper scripts
-path_to_main="./Chromatin_modules/phm/main";
+path_to_main="./main";
 
 ## # Specify dataset name
 dataset="test_data";
@@ -26,9 +27,9 @@ threshold="0.8";
 ## thresholds=( "0.7" "0.75" "0.8" );
 
 ## # Specify path to input data
-data_path="./PHM_test";
+data_path="../1.mapped_CMs/phm";
 ## # Specify output path
-output_path="./PHM_test";
+output_path="../1.mapped_CMs/phm";
 
 ## # data_path should point to the folder with files generated
 ## # with the 0.phm_data_preparation.ipynb notebook.
@@ -49,7 +50,7 @@ do
 
     ## # Peak annotation (tabix indexed)
     PEAK=${data_path}/${chromosome}/${chromosome}_peak_coordinates.bed.gz
-
+    
     ## # OUTPUT DATA
     ## # Bayes factors calculated by script/bayeslm1.sh
     IN1=${output_path}/${chromosome}/bayeslm_1.gz
@@ -68,37 +69,13 @@ do
 
     ## # Prior probability that each peak is a QTL
     PI1=${output_path}/${chromosome}/hm_output/Pi1.bin
-
     ## # Run main PHM script
-
-    sh ${path_to_main}/PHM.sh \
-        -d $PHMDIR \
-        -s ${path_to_main}/src \ 
-        -w $window_int \
-        -p $PEAK \
-        -f $FPKM \
-        -v $VCF \
-        -i $IN1 \
-        -n $IN2 \
-        -o $OUT1 \
-        -u $OUT2 \
-        -l $VL \
-        -r $PI1
+    sh ${path_to_main}/PHM.sh -d $PHMDIR -s ${path_to_main}/src -w ${window_int} -p $PEAK -f $FPKM -v $VCF -i $IN1 -n $IN2 -o $OUT1 -u $OUT2 -l $VL -r $PI1
 done
 
-
+## # threshold defines causal interaction threshold for DAG construction
 ## # Reconstruct DAGs from the pairwise peak associations
-python3 ${path_to_main}/src/1.build_DAGs_per_chr.py \
-    -d ${dataset} \
-    -i ${data_path} \
-    -t ${threshold} \  ##  # causal interaction threshold for DAG construction
-    -c ${chromosome_str} \
-    -o ${output_path}
+python3 ${path_to_main}/src/1.build_DAGs_per_chr.py -d ${dataset} -i ${data_path} -t ${threshold} -c ${chromosome_str} -o ${output_path}
 
 ## # Convert DAG files into CM .tracks and .content files
-python3 ${path_to_main}/src/2.get_CMs_from_DAGs.py \
-    -d ${dataset} \
-    -i ${data_path} \
-    -t ${threshold} \
-    -c ${chromosome_str} \
-    -o ${output_path}
+python3 ${path_to_main}/src/2.get_CMs_from_DAGs.py -d ${dataset} -i ${data_path} -t ${threshold} -c ${chromosome_str} -o ${output_path}
