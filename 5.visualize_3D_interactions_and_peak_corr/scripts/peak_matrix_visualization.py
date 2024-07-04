@@ -65,6 +65,7 @@ def get_corr_matrix(edgelist_df, output_path, dataset, gene, corr_file_name):
                         full_pivot_df.loc[row, col] = full_pivot_df.loc[col, row]
                     elif full_pivot_df.loc[col, row] == 0:
                         full_pivot_df.loc[col, row] = full_pivot_df.loc[row, col]
+        print("Fixed!")
     if not os.path.exists(os.path.join(output_path, "corr_matrix_format", dataset)):
         os.makedirs(os.path.join(output_path, "corr_matrix_format", dataset))
     full_pivot_df.to_csv(

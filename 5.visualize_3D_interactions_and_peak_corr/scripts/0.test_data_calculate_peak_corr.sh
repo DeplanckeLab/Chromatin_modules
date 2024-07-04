@@ -23,5 +23,6 @@ sort -k1,1 -k2,2n \
     > ${path_to_theoretical_pv_output}/${dataset}_theoretical_corr_with_p_values_sorted.bed;
 bgzip ${path_to_theoretical_pv_output}/${dataset}_theoretical_corr_with_p_values_sorted.bed;
 tabix -p bed ${path_to_theoretical_pv_output}/${dataset}_theoretical_corr_with_p_values_sorted.bed.gz;
+rm ${path_to_theoretical_pv_output}/${dataset}_theoretical_corr_with_p_values_sorted.bed;
 
 
