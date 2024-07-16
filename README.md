@@ -57,9 +57,4 @@ This repository contains:
 **III. CM exploration:**
 
 1. Explore CMs from *[...]CM.tracks.bed* in [IGV](https://igv.org). Information on CM content, namely CM peak IDs, can be found in *[...]CM.content.txt*
-
-
-_**Upcoming updates**_
-1. Methods for CM reproducibility/similarity scoring
-2. CM simulation strategy
  
